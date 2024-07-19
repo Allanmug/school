@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>Welcome to the School Management System</h1>
+<div class="bttns">
+    <h3>Hello Pius, hope the {{ current_date|date:"l" }} is great</h3>
+    <button class="toggle-btn"><a href="{% url 'register' %}">Register</a></button>
+    <button class="toggle-btn"><a href="{% url 'login' %}">Login</a></button>
+
+    <p>If you have an account, please login.</p>
+    <p>If not, please register.</p>
+</div>
+{% endblock %}
