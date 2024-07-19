@@ -114,14 +114,14 @@ USE_I18N = True
 
  
 # Define the URL that handles the static files served from STATIC_ROOT
-STATIC_URL = '/static/'
+STATIC_URL = 'core/static/'
 
 # Define the directory where collectstatic will collect static files for deployment
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Additional locations the staticfiles app will traverse if the FileSystemFinder finder is enabled
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'core/static'),
 ]
 
 # Default primary key field type
