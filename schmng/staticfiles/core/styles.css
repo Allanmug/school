@@ -6,7 +6,17 @@ body {
     margin: 0;
     padding: 0;
 }
+.bttns{
+   
+    text-align: center;
+    align-items: center;
+}
+.toggle-btn a{
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
 
+}
 .container {
     max-width: 800px;
     margin: 50px auto;
@@ -25,9 +35,12 @@ h1, h2 {
 
 /* Forms */
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 50px auto; /* Center form horizontally and add some top margin */
 }
 
 input[type="text"], input[type="email"], input[type="password"] {
@@ -36,6 +49,49 @@ input[type="text"], input[type="email"], input[type="password"] {
     border-radius: 5px;
     font-size: 1em;
 }
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Label styling */
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Input fields */
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hide default validation help texts */
+input:invalid:focus {
+    border-color: #e74c3c;
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+}
+
+/* Validation message */
+.error-message {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
 
 button {
     padding: 10px 20px;
@@ -46,11 +102,6 @@ button {
     font-size: 1em;
     cursor: pointer;
     transition: background 0.3s;
-}
-
-button .toggle-btn{
-    text-decoration: none;
-    color: #ccc;
 }
 
 button:hover {
