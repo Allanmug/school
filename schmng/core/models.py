@@ -1,23 +1,16 @@
+# models.py
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class User(AbstractUser):
-    is_teacher = models.BooleanField(default=False)
-    is_student = models.BooleanField(default=False)
+    ROLE_CHOICES = (
+        ('teacher', 'Teacher'),
+        ('student', 'Student'),
+    )
+
+    role = models.CharField(max_length=7, choices=ROLE_CHOICES, default='student')
+    secret_word = models.CharField(max_length=20, blank=True, null=True)
+    role_data = models.JSONField(default=dict, blank=True, null=True)
 
     def __str__(self):
         return self.username
-
-class Teacher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    secret_word = models.CharField(max_length=20)
-
-    def __str__(self):
-        return f"Teacher: {self.user.username}"
-
-class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    secret_word = models.CharField(max_length=20)
-
-    def __str__(self):
-        return f"Student: {self.user.username}"

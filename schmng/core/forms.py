@@ -1,11 +1,11 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Teacher, Student, User  # Import the custom User model
+from .models import User
 
 class UserRegisterForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'form-control'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password', 'class': 'form-control'}))
-    role = forms.ChoiceField(choices=[('teacher', 'Teacher'), ('student', 'Student')], widget=forms.RadioSelect(attrs={'class': 'form-radio'}))
+    role = forms.ChoiceField(choices=User.ROLE_CHOICES, widget=forms.RadioSelect(attrs={'class': 'form-radio'}))
 
     class Meta:
         model = User
@@ -22,34 +22,18 @@ class UserRegisterForm(forms.ModelForm):
             raise ValidationError("Passwords do not match")
         return password2
 
-class TeacherRegisterForm(forms.ModelForm):
+class RoleSpecificForm(forms.ModelForm):
     secret_word = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Secret Word', 'class': 'form-control'}))
 
     class Meta:
-        model = Teacher
+        model = User
         fields = ['secret_word']
-        widgets = {
-            'secret_word': forms.PasswordInput(attrs={'placeholder': 'Secret Word', 'class': 'form-control'}),
-        }
 
     def clean_secret_word(self):
         secret_word = self.cleaned_data.get("secret_word")
-        if secret_word != 'teach':
-            raise ValidationError("Invalid secret word")
-        return secret_word
-
-class StudentRegisterForm(forms.ModelForm):
-    secret_word = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Secret Word', 'class': 'form-control'}))
-
-    class Meta:
-        model = Student
-        fields = ['secret_word']
-        widgets = {
-            'secret_word': forms.PasswordInput(attrs={'placeholder': 'Secret Word', 'class': 'form-control'}),
-        }
-
-    def clean_secret_word(self):
-        secret_word = self.cleaned_data.get("secret_word")
-        if secret_word != 'learn':
-            raise ValidationError("Invalid secret word")
+        role = self.instance.role
+        if role == 'teacher' and secret_word != 'teach':
+            raise ValidationError("Invalid secret word for teacher")
+        elif role == 'student' and secret_word != 'learn':
+            raise ValidationError("Invalid secret word for student")
         return secret_word
